@@ -28,6 +28,10 @@ public class AbacatePay implements IAbacatePay {
 
     private RequestInterceptor requestInterceptor() {
         return template -> {
+            if (apiKey == null || apiKey.isEmpty()) {
+                throw new IllegalArgumentException("API key not provided");
+            }
+
             template.header("Authorization", "Bearer " + apiKey);
             template.header("Content-Type", "application/json");
             template.header("User-Agent", userAgent);
