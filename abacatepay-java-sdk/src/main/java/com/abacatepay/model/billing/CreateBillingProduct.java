@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-public class CreatingBillingProduct {
+public class CreateBillingProduct {
     private String externalId;
     private String name;
     private Integer quantity;
