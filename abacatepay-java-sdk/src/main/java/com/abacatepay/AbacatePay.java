@@ -1,17 +1,14 @@
 package com.abacatepay;
 
 import com.abacatepay.clients.AbacatePayClient;
-import com.abacatepay.clients.exceptions.handlers.CustomExceptionDecoder;
+import com.abacatepay.clients.factories.AbacatePayClientFactory;
 import com.abacatepay.model.IAbacatePay;
 import com.abacatepay.model.IAbacatePayBilling;
 import com.abacatepay.model.billing.CreateBillingData;
 import com.abacatepay.model.billing.CreateBillingResponse;
 import com.abacatepay.model.billing.ListBillingResponse;
-import feign.Feign;
 import feign.FeignException;
 import feign.RequestInterceptor;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
 
 public class AbacatePay implements IAbacatePay {
 
@@ -23,12 +20,7 @@ public class AbacatePay implements IAbacatePay {
 
     public AbacatePay(String apiKey) {
         this.apiKey = apiKey;
-        this.client = Feign.builder()
-                .decoder(new JacksonDecoder())
-                .encoder(new JacksonEncoder())
-                .errorDecoder(new CustomExceptionDecoder())
-                .requestInterceptor(requestInterceptor())
-                .target(AbacatePayClient.class, API_BASE_URL);
+        this.client = AbacatePayClientFactory.create(API_BASE_URL, requestInterceptor());
 
         //TODO: Pegar a versão do SDK dinamicamente
         this.userAgent = "Java SDK (1.0.0)";
