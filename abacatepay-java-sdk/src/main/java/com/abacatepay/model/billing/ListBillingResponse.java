@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ListingBillingResponse {
+public class ListBillingResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String error;
 
