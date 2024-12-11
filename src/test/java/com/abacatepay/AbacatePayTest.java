@@ -1,7 +1,13 @@
 package com.abacatepay;
 
 import com.abacatepay.clients.AbacatePayClient;
+import com.abacatepay.services.IAbacatePayBilling;
+import com.abacatepay.services.IAbacatePayCustomer;
+import com.abacatepay.services.impl.AbacatePayBilling;
+import com.abacatepay.services.impl.AbacatePayCustomer;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -28,5 +34,19 @@ class AbacatePayTest {
         Field clientField = AbacatePay.class.getDeclaredField("client");
         clientField.setAccessible(true);
         clientField.set(abacatePay, mockClient);
+    }
+
+    @Test
+    void testBilling() {
+        IAbacatePayBilling billingService = abacatePay.billing();
+        Assertions.assertNotNull(billingService);
+        Assertions.assertTrue(billingService instanceof AbacatePayBilling);
+    }
+
+    @Test
+    void testCustomer() {
+        IAbacatePayCustomer customerService = abacatePay.customer();
+        Assertions.assertNotNull(customerService);
+        Assertions.assertTrue(customerService instanceof AbacatePayCustomer);
     }
 }
