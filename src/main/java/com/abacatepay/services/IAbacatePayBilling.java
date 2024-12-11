@@ -1,4 +1,4 @@
-package com.abacatepay.model;
+package com.abacatepay.services;
 
 import com.abacatepay.model.billing.CreateBillingData;
 import com.abacatepay.model.billing.CreateBillingResponse;

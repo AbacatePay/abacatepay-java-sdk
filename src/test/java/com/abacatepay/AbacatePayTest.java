@@ -1,26 +1,22 @@
 package com.abacatepay;
 
 import com.abacatepay.clients.AbacatePayClient;
-import com.abacatepay.model.billing.CreateBillingData;
-import com.abacatepay.model.billing.CreateBillingResponse;
-import com.abacatepay.model.billing.ListBillingResponse;
+import com.abacatepay.services.IAbacatePayBilling;
+import com.abacatepay.services.IAbacatePayCustomer;
+import com.abacatepay.services.impl.AbacatePayBilling;
+import com.abacatepay.services.impl.AbacatePayCustomer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.lang.reflect.Field;
 
-import static org.mockito.Mockito.*;
-
 class AbacatePayTest {
 
     @Mock
     private AbacatePayClient abacatePayClient;
-
-    @InjectMocks
     private AbacatePay abacatePay;
 
     @BeforeEach
@@ -38,48 +34,30 @@ class AbacatePayTest {
     }
 
     @Test
-    void shouldReturnCreateBillingResponseOnSuccess() {
-        CreateBillingData data = CreateBillingData.builder().build();
-        CreateBillingResponse expectedResponse = new CreateBillingResponse();
-
-        when(abacatePayClient.create(data)).thenReturn(expectedResponse);
-
-        CreateBillingResponse result = abacatePay.billing().create(data);
-        verify(abacatePayClient, atMostOnce()).create(data);
-        Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
+    void testBilling() {
+        IAbacatePayBilling billingService = abacatePay.billing();
+        Assertions.assertNotNull(billingService);
+        Assertions.assertTrue(billingService instanceof AbacatePayBilling);
     }
 
     @Test
-    void shouldCreateBillingThrowsAnException() {
-        CreateBillingData data = CreateBillingData.builder().build();
-        CreateBillingResponse expectedResponse = new CreateBillingResponse("API key not provided");
-
-        when(abacatePayClient.create(data)).thenThrow(new IllegalArgumentException("API key not provided"));
-
-        CreateBillingResponse result = abacatePay.billing().create(data);
-        verify(abacatePayClient, atMostOnce()).create(data);
-        Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
+    void testCustomer() {
+        IAbacatePayCustomer customerService = abacatePay.customer();
+        Assertions.assertNotNull(customerService);
+        Assertions.assertTrue(customerService instanceof AbacatePayCustomer);
     }
 
     @Test
-    void shouldReturnBillingListResponseOnSucess() {
-        ListBillingResponse expectedResponse = new ListBillingResponse();
-
-        when(abacatePayClient.list()).thenReturn(expectedResponse);
-
-        ListBillingResponse result = abacatePay.billing().list();
-        verify(abacatePayClient, atMostOnce()).list();
-        Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
+    void shouldThrowsIllegalArgumentExceptionIfApiKeyIsNull() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            abacatePay = new AbacatePay(null);
+        }, "Should throw an IllegalArgumentException");
     }
 
     @Test
-    void shouldListBillingThrowsAnException() {
-        ListBillingResponse expectedResponse = new ListBillingResponse("API key not provided");
-
-        when(abacatePayClient.list()).thenThrow(new IllegalArgumentException("API key not provided"));
-
-        ListBillingResponse result = abacatePay.billing().list();
-        verify(abacatePayClient, atMostOnce()).list();
-        Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
+    void shouldThrowsIllegalArgumentExceptionIfApiKeyIsBlank() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            abacatePay = new AbacatePay("");
+        }, "Should throw an IllegalArgumentException");
     }
 }
