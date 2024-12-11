@@ -6,6 +6,7 @@ import com.abacatepay.model.billing.CreateBillingResponse;
 import com.abacatepay.model.billing.ListBillingResponse;
 import com.abacatepay.model.customer.CreateCustomerResponse;
 import com.abacatepay.model.customer.CustomerMetadata;
+import com.abacatepay.model.customer.ListCustomerResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -108,6 +109,30 @@ class AbacatePayTest {
 
         CreateCustomerResponse result = abacatePay.billing().createCustomer(request);
         verify(abacatePayClient, atMostOnce()).createCustomer(request);
+        Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
+    }
+
+    @Test
+    void shouldReturnListCustomersResponseOnSuccess() {
+        ListCustomerResponse expectedResponse = new ListCustomerResponse();
+
+        when(abacatePayClient.listCustomers())
+                .thenReturn(expectedResponse);
+
+        ListCustomerResponse result = abacatePay.billing().listCustomers();
+        verify(abacatePayClient, atMostOnce()).listCustomers();
+        Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
+    }
+
+    @Test
+    void shouldListCustomersThrowsAnException() {
+        ListCustomerResponse expectedResponse = new ListCustomerResponse("Unauthorized");
+
+        when(abacatePayClient.listCustomers())
+                .thenThrow(new IllegalArgumentException("Unauthorized"));
+
+        ListCustomerResponse result = abacatePay.billing().listCustomers();
+        verify(abacatePayClient, atMostOnce()).listCustomers();
         Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
     }
 }
