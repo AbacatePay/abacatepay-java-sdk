@@ -3,14 +3,10 @@ package com.abacatepay;
 import com.abacatepay.clients.AbacatePayClient;
 import com.abacatepay.clients.factories.AbacatePayClientFactory;
 import com.abacatepay.model.IAbacatePay;
-import com.abacatepay.model.IAbacatePayBilling;
-import com.abacatepay.model.billing.CreateBillingData;
-import com.abacatepay.model.billing.CreateBillingResponse;
-import com.abacatepay.model.billing.ListBillingResponse;
-import com.abacatepay.model.customer.CreateCustomerResponse;
-import com.abacatepay.model.customer.CustomerMetadata;
-import com.abacatepay.model.customer.ListCustomerResponse;
-import feign.FeignException;
+import com.abacatepay.services.IAbacatePayBilling;
+import com.abacatepay.services.IAbacatePayCustomer;
+import com.abacatepay.services.impl.AbacatePayBilling;
+import com.abacatepay.services.impl.AbacatePayCustomer;
 import feign.RequestInterceptor;
 
 public class AbacatePay implements IAbacatePay {
@@ -43,46 +39,11 @@ public class AbacatePay implements IAbacatePay {
 
     @Override
     public IAbacatePayBilling billing() {
+        return new AbacatePayBilling(client);
+    }
 
-        class AbacatePayBilling implements IAbacatePayBilling {
-
-            @Override
-            public CreateBillingResponse create(CreateBillingData data) {
-                try {
-                    return client.create(data);
-                } catch (IllegalArgumentException | FeignException e) {
-                    return new CreateBillingResponse(e.getMessage());
-                }
-            }
-
-            @Override
-            public ListBillingResponse list() {
-                try {
-                    return client.list();
-                } catch (IllegalArgumentException | FeignException e) {
-                    return new ListBillingResponse(e.getMessage());
-                }
-            }
-
-            @Override
-            public CreateCustomerResponse createCustomer(CustomerMetadata data) {
-                try {
-                    return client.createCustomer(data);
-                } catch (IllegalArgumentException | FeignException e) {
-                    return new CreateCustomerResponse(e.getMessage());
-                }
-            }
-
-            @Override
-            public ListCustomerResponse listCustomers() {
-                try {
-                    return client.listCustomers();
-                } catch (IllegalArgumentException | FeignException e) {
-                    return new ListCustomerResponse(e.getMessage());
-                }
-            }
-        }
-
-        return new AbacatePayBilling();
+    @Override
+    public IAbacatePayCustomer customer() {
+        return new AbacatePayCustomer(client);
     }
 }

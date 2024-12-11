@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class CreateCustomerResponseTest {
     @Test
     void testErrorConstructor() {
-        CreateCustomerResponse response = new CreateCustomerResponse("Error");
+        CreateCustomerResponse response = new CreateCustomerResponse("Error occurred");
         assertEquals("Error occurred", response.getError(), "Error field must be set correctly");
     }
 
