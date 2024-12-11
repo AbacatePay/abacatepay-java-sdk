@@ -15,9 +15,9 @@ class CreateBillingResponseTest {
     void testGettersAndSetters() {
         CreateBillingResponse response = new CreateBillingResponse();
         response.setError("Error occurred");
-        response.setBilling(null);
+        response.setData(null);
 
         assertEquals("Error occurred", response.getError(), "Error field must be set correctly");
-        assertNull(response.getBilling(), "Billing field must be set correctly");
+        assertNull(response.getData(), "Billing field must be set correctly");
     }
 }
