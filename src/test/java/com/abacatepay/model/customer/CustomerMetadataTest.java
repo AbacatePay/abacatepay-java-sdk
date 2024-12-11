@@ -1,4 +1,4 @@
-package com.abacatepay.model.billing;
+package com.abacatepay.model.customer;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

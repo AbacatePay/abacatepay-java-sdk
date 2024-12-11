@@ -1,5 +1,6 @@
 package com.abacatepay.model.billing;
 
+import com.abacatepay.model.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -38,9 +39,3 @@ class Product {
     private Integer quantity;
 }
 
-@Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-class Customer {
-    private String id;
-    private CustomerMetadata metadata;
-}
