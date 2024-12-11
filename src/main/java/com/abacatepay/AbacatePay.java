@@ -7,6 +7,8 @@ import com.abacatepay.model.IAbacatePayBilling;
 import com.abacatepay.model.billing.CreateBillingData;
 import com.abacatepay.model.billing.CreateBillingResponse;
 import com.abacatepay.model.billing.ListBillingResponse;
+import com.abacatepay.model.customer.CreateCustomerResponse;
+import com.abacatepay.model.customer.CustomerMetadata;
 import feign.FeignException;
 import feign.RequestInterceptor;
 
@@ -58,6 +60,15 @@ public class AbacatePay implements IAbacatePay {
                     return client.list();
                 } catch (IllegalArgumentException | FeignException e) {
                     return new ListBillingResponse(e.getMessage());
+                }
+            }
+
+            @Override
+            public CreateCustomerResponse createCustomer(CustomerMetadata data) {
+                try {
+                    return client.createCustomer(data);
+                } catch (IllegalArgumentException | FeignException e) {
+                    return new CreateCustomerResponse(e.getMessage());
                 }
             }
         }
