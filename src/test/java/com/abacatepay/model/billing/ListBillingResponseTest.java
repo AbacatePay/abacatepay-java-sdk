@@ -15,9 +15,9 @@ class ListBillingResponseTest {
     void testGettersAndSetters() {
         ListBillingResponse response = new ListBillingResponse();
         response.setError("Error occurred");
-        response.setBillings(null);
+        response.setData(null);
 
         assertEquals("Error occurred", response.getError(), "Error field must be set correctly");
-        assertNull(response.getBillings(), "Billings field must be set correctly");
+        assertNull(response.getData(), "Billings field must be set correctly");
     }
 }

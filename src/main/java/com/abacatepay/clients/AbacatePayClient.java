@@ -11,10 +11,10 @@ import feign.RequestLine;
 public interface AbacatePayClient {
 
     @RequestLine("GET /billing/list")
-    ListBillingResponse list();
+    ListBillingResponse listBillings();
 
     @RequestLine("POST /billing/create")
-    CreateBillingResponse create(CreateBillingData body);
+    CreateBillingResponse createBilling(CreateBillingData body);
 
     @RequestLine("POST /customer/create")
     CreateCustomerResponse createCustomer(CustomerMetadata body);

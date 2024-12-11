@@ -8,7 +8,6 @@ import com.abacatepay.services.impl.AbacatePayCustomer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -18,8 +17,6 @@ class AbacatePayTest {
 
     @Mock
     private AbacatePayClient abacatePayClient;
-
-    @InjectMocks
     private AbacatePay abacatePay;
 
     @BeforeEach
@@ -48,5 +45,19 @@ class AbacatePayTest {
         IAbacatePayCustomer customerService = abacatePay.customer();
         Assertions.assertNotNull(customerService);
         Assertions.assertTrue(customerService instanceof AbacatePayCustomer);
+    }
+
+    @Test
+    void shouldThrowsIllegalArgumentExceptionIfApiKeyIsNull() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            abacatePay = new AbacatePay(null);
+        }, "Should throw an IllegalArgumentException");
+    }
+
+    @Test
+    void shouldThrowsIllegalArgumentExceptionIfApiKeyIsBlank() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            abacatePay = new AbacatePay("");
+        }, "Should throw an IllegalArgumentException");
     }
 }
