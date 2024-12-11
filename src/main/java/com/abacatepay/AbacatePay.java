@@ -32,7 +32,7 @@ public class AbacatePay implements IAbacatePay {
             @Override
             public CreateBillingResponse create(CreateBillingData data) {
                 try {
-                    return client.create(data);
+                    return client.createBilling(data);
                 } catch (IllegalArgumentException | FeignException e) {
                     return new CreateBillingResponse(e.getMessage());
                 }
@@ -41,7 +41,7 @@ public class AbacatePay implements IAbacatePay {
             @Override
             public ListBillingResponse list() {
                 try {
-                    return client.list();
+                    return client.listBillings();
                 } catch (IllegalArgumentException | FeignException e) {
                     return new ListBillingResponse(e.getMessage());
                 }

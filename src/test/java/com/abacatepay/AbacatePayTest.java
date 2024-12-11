@@ -7,7 +7,6 @@ import com.abacatepay.model.billing.ListBillingResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -40,10 +39,10 @@ class AbacatePayTest {
         CreateBillingData data = CreateBillingData.builder().build();
         CreateBillingResponse expectedResponse = new CreateBillingResponse();
 
-        when(abacatePayClient.create(data)).thenReturn(expectedResponse);
+        when(abacatePayClient.createBilling(data)).thenReturn(expectedResponse);
 
         CreateBillingResponse result = abacatePay.billing().create(data);
-        verify(abacatePayClient, atMostOnce()).create(data);
+        verify(abacatePayClient, atMostOnce()).createBilling(data);
         Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
     }
 
@@ -52,10 +51,10 @@ class AbacatePayTest {
         CreateBillingData data = CreateBillingData.builder().build();
         CreateBillingResponse expectedResponse = new CreateBillingResponse("API key not provided");
 
-        when(abacatePayClient.create(data)).thenThrow(new IllegalArgumentException("API key not provided"));
+        when(abacatePayClient.createBilling(data)).thenThrow(new IllegalArgumentException("API key not provided"));
 
         CreateBillingResponse result = abacatePay.billing().create(data);
-        verify(abacatePayClient, atMostOnce()).create(data);
+        verify(abacatePayClient, atMostOnce()).createBilling(data);
         Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
     }
 
@@ -63,10 +62,10 @@ class AbacatePayTest {
     void shouldReturnBillingListResponseOnSucess() {
         ListBillingResponse expectedResponse = new ListBillingResponse();
 
-        when(abacatePayClient.list()).thenReturn(expectedResponse);
+        when(abacatePayClient.listBillings()).thenReturn(expectedResponse);
 
         ListBillingResponse result = abacatePay.billing().list();
-        verify(abacatePayClient, atMostOnce()).list();
+        verify(abacatePayClient, atMostOnce()).listBillings();
         Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
     }
 
@@ -74,10 +73,10 @@ class AbacatePayTest {
     void shouldListBillingThrowsAnException() {
         ListBillingResponse expectedResponse = new ListBillingResponse("API key not provided");
 
-        when(abacatePayClient.list()).thenThrow(new IllegalArgumentException("API key not provided"));
+        when(abacatePayClient.listBillings()).thenThrow(new IllegalArgumentException("API key not provided"));
 
         ListBillingResponse result = abacatePay.billing().list();
-        verify(abacatePayClient, atMostOnce()).list();
+        verify(abacatePayClient, atMostOnce()).listBillings();
         Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
     }
 
