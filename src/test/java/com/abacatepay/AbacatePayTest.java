@@ -19,8 +19,6 @@ class AbacatePayTest {
 
     @Mock
     private AbacatePayClient abacatePayClient;
-
-    @InjectMocks
     private AbacatePay abacatePay;
 
     @BeforeEach
@@ -81,5 +79,19 @@ class AbacatePayTest {
         ListBillingResponse result = abacatePay.billing().list();
         verify(abacatePayClient, atMostOnce()).list();
         Assertions.assertEquals(expectedResponse, result, "Should return the expected response");
+    }
+
+    @Test
+    void shouldThrowsIllegalArgumentExceptionIfApiKeyIsNull() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            abacatePay = new AbacatePay(null);
+        }, "Should throw an IllegalArgumentException");
+    }
+
+    @Test
+    void shouldThrowsIllegalArgumentExceptionIfApiKeyIsBlank() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            abacatePay = new AbacatePay("");
+        }, "Should throw an IllegalArgumentException");
     }
 }
