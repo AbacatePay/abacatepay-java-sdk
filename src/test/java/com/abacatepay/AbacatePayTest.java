@@ -89,7 +89,7 @@ class AbacatePayTest {
     @Test
     void shouldReturnCreateCustomerResponseOnSuccess() {
         CreateCustomerResponse expectedResponse = new CreateCustomerResponse();
-        CustomerMetadata request = new CustomerMetadata();
+        CustomerMetadata request = CustomerMetadata.builder().build();
 
         when(abacatePayClient.createCustomer(request))
                 .thenReturn(expectedResponse);
@@ -102,7 +102,7 @@ class AbacatePayTest {
     @Test
     void shouldCreateCustomerThrowsAnException() {
         CreateCustomerResponse expectedResponse = new CreateCustomerResponse("Unauthorized");
-        CustomerMetadata request = new CustomerMetadata();
+        CustomerMetadata request = CustomerMetadata.builder().build();
 
         when(abacatePayClient.createCustomer(request))
             .thenThrow(new IllegalArgumentException("Unauthorized"));
