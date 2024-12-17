@@ -1,9 +1,9 @@
 package com.abacatepay;
 
-import com.abacatepay.clients.AbacatePayClient;
-import com.abacatepay.model.billing.CreateBillingData;
-import com.abacatepay.model.billing.CreateBillingResponse;
-import com.abacatepay.model.billing.ListBillingResponse;
+import com.abacatepay.Models.Client.AbacatePayClient;
+import com.abacatepay.Models.Billing.CreateBillingData;
+import com.abacatepay.Models.Billing.CreateBillingResponse;
+import com.abacatepay.Models.Billing.ListBillingResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

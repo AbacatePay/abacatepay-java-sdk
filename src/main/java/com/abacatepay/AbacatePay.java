@@ -1,12 +1,12 @@
 package com.abacatepay;
 
-import com.abacatepay.clients.AbacatePayClient;
-import com.abacatepay.clients.factories.AbacatePayClientFactory;
-import com.abacatepay.model.IAbacatePay;
-import com.abacatepay.model.IAbacatePayBilling;
-import com.abacatepay.model.billing.CreateBillingData;
-import com.abacatepay.model.billing.CreateBillingResponse;
-import com.abacatepay.model.billing.ListBillingResponse;
+import com.abacatepay.Models.Client.AbacatePayClient;
+import com.abacatepay.Models.Client.factories.AbacatePayClientFactory;
+import com.abacatepay.Models.IAbacatePay;
+import com.abacatepay.Models.IAbacatePayBilling;
+import com.abacatepay.Models.Billing.CreateBillingData;
+import com.abacatepay.Models.Billing.CreateBillingResponse;
+import com.abacatepay.Models.Billing.ListBillingResponse;
 import feign.FeignException;
 import feign.RequestInterceptor;
 
