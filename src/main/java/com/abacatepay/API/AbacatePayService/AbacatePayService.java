@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface AbacatePayService {
     CreateBillingResponse createBilling(CreateBillingData billingData);
-    AbacatePayClientResponse createNewClient(AbacatePayClientRequest abacatePayClientRequest, AbacatePayConfig config);
-    List<AbacatePayClientResponse> listingClients(AbacatePayConfig config);
+    List<CreateBillingResponse> listingBillings();
+    AbacatePayClientResponse createNewClient(AbacatePayClientRequest abacatePayClientRequest);
+    List<AbacatePayClientResponse> listingClients();
 }

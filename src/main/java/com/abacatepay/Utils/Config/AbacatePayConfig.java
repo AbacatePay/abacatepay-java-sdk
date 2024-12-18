@@ -1,13 +1,14 @@
 package com.abacatepay.Utils.Config;
 
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 @Data
+@Component
+@ConfigurationProperties(prefix = "abacatepay")
 public class AbacatePayConfig {
-    private final String BASE_URL;
-    private final String API_KEY;
-    public AbacatePayConfig(String baseUrl, String apiKey){
-        BASE_URL = baseUrl;
-        this.API_KEY = apiKey;
-    }
+    private String baseUrl;
+    private String apiKey;
+
 }

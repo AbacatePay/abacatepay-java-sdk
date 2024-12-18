@@ -1,6 +1,7 @@
 package com.abacatepay.API.AbacatePayService;
 
 import com.abacatepay.API.ClientService.ClientService;
+import com.abacatepay.API.PaymentService.PaymentService;
 import com.abacatepay.Models.AbacatePayClient.AbacatePayClientRequest;
 import com.abacatepay.Models.AbacatePayClient.AbacatePayClientResponse;
 import com.abacatepay.Models.Billing.CreateBillingData;
@@ -12,25 +13,36 @@ import java.util.List;
 
 @Service
 public class AbacatePayServiceImpl implements AbacatePayService {
+    private final AbacatePayConfig abacatePayConfig;
     private final ClientService clientService;
+    private final PaymentService paymentService;
 
-    public AbacatePayServiceImpl(ClientService clientService) {
+    public AbacatePayServiceImpl(AbacatePayConfig abacatePayConfig, ClientService clientService, PaymentService paymentService) {
+        this.abacatePayConfig = abacatePayConfig;
         this.clientService = clientService;
+        this.paymentService = paymentService;
     }
 
-    //This method create a billing in a AbacatePay Client
+    // Payment & Billing Actions
     @Override
     public CreateBillingResponse createBilling(CreateBillingData billingData) {
-        return null;
+        return paymentService.createBilling(billingData);
     }
 
     @Override
-    public AbacatePayClientResponse createNewClient(AbacatePayClientRequest abacatePayClientRequest, AbacatePayConfig config) {
-        return clientService.createNewClient(abacatePayClientRequest, config);
+    public List<CreateBillingResponse> listingBillings() {
+        // Acessa abacatePayConfig diretamente se necessário
+        return paymentService.listingBillings(abacatePayConfig);
+    }
+
+    // Client Actions
+    @Override
+    public AbacatePayClientResponse createNewClient(AbacatePayClientRequest abacatePayClientRequest) {
+        return clientService.createNewClient(abacatePayClientRequest, abacatePayConfig);
     }
 
     @Override
-    public List<AbacatePayClientResponse> listingClients(AbacatePayConfig config) {
-        return clientService.listingClients(config);
+    public List<AbacatePayClientResponse> listingClients() {
+        return clientService.listingClients(abacatePayConfig);
     }
 }
