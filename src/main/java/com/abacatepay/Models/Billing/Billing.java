@@ -1,5 +1,7 @@
 package com.abacatepay.Models.Billing;
 
+import com.abacatepay.Models.CustomerModel.Customer;
+import com.abacatepay.Models.ProductModel.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -32,15 +34,5 @@ public class Billing {
     private LocalDateTime updatedAt;
 }
 
-@Data
-class Product {
-    private String productId;
-    private Integer quantity;
-}
 
-@Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-class Customer {
-    private String id;
-    private CustomerMetadata metadata;
-}
+
