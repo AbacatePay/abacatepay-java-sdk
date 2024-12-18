@@ -7,14 +7,12 @@ import com.abacatepay.Models.Billing.*;
 import com.abacatepay.Models.ProductModel.Product;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public class JsonUtilServiceImpl implements JsonUtilService {
 
     // REQUESTS

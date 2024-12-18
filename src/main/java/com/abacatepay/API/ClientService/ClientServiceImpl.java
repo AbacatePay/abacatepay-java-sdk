@@ -7,11 +7,8 @@ import com.abacatepay.Utils.Exceptions.ClientExeption;
 import com.abacatepay.Utils.JsonUtils.JsonUtilService;
 import okhttp3.*;
 import org.json.JSONObject;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
 public class ClientServiceImpl implements ClientService {
     private final JsonUtilService jsonUtilService;
     private final OkHttpClient client = new OkHttpClient();

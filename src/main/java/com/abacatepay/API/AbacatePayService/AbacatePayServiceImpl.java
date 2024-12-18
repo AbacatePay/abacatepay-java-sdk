@@ -6,14 +6,12 @@ import com.abacatepay.Models.AbacatePayClient.AbacatePayClientRequest;
 import com.abacatepay.Models.AbacatePayClient.AbacatePayClientResponse;
 import com.abacatepay.Models.Billing.Billing;
 import com.abacatepay.Models.Billing.CreateBillingData;
-import com.abacatepay.Models.Billing.CreateBillingResponse;
 import com.abacatepay.Utils.Config.AbacatePayConfig;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public class AbacatePayServiceImpl implements AbacatePayService {
     private final AbacatePayConfig abacatePayConfig;
     private final ClientService clientService;

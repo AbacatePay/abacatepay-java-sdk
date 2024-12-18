@@ -1,11 +1,14 @@
 package com.abacatepay;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.abacatepay.API.AbacatePayService.AbacatePayService;
+import com.abacatepay.API.ClientService.ClientService;
+import com.abacatepay.API.PaymentService.PaymentService;
+import com.abacatepay.Utils.JsonUtils.JsonUtilService;
 
-@SpringBootApplication
 public class AbacatePaySDK {
-    public static void main(String[] args){
-        SpringApplication.run(AbacatePaySDK.class, args);
-    }
+  public AbacatePayService abacatePayService;
+  public ClientService clientService;
+  public PaymentService paymentService;
+  public JsonUtilService jsonUtilService;
+
 }

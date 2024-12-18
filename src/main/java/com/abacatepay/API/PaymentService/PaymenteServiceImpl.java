@@ -2,17 +2,15 @@ package com.abacatepay.API.PaymentService;
 
 import com.abacatepay.Models.Billing.Billing;
 import com.abacatepay.Models.Billing.CreateBillingData;
-import com.abacatepay.Models.Billing.CreateBillingResponse;
 import com.abacatepay.Utils.Config.AbacatePayConfig;
 import com.abacatepay.Utils.JsonUtils.JsonUtilService;
 import okhttp3.*;
 import org.json.JSONObject;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public class PaymenteServiceImpl implements PaymentService {
     private final OkHttpClient client = new OkHttpClient();
     private final JsonUtilService jsonUtilService;
