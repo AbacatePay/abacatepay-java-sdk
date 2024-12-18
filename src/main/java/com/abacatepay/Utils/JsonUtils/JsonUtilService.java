@@ -19,4 +19,6 @@ public interface JsonUtilService {
     JSONObject createBillingDataJson(CreateBillingData billingData);
 
     Billing createBillingResponseFromJsonToObject(String string);
+
+    List<Billing> listingBillingResponseFromJsonToObject(String string);
 }

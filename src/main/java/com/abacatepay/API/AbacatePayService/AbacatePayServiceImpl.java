@@ -4,12 +4,14 @@ import com.abacatepay.API.ClientService.ClientService;
 import com.abacatepay.API.PaymentService.PaymentService;
 import com.abacatepay.Models.AbacatePayClient.AbacatePayClientRequest;
 import com.abacatepay.Models.AbacatePayClient.AbacatePayClientResponse;
+import com.abacatepay.Models.Billing.Billing;
 import com.abacatepay.Models.Billing.CreateBillingData;
 import com.abacatepay.Models.Billing.CreateBillingResponse;
 import com.abacatepay.Utils.Config.AbacatePayConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AbacatePayServiceImpl implements AbacatePayService {
@@ -25,13 +27,12 @@ public class AbacatePayServiceImpl implements AbacatePayService {
 
     // Payment & Billing Actions
     @Override
-    public CreateBillingResponse createBilling(CreateBillingData billingData) {
+    public Optional<Billing> createBilling(CreateBillingData billingData) {
         return paymentService.createBilling(billingData, abacatePayConfig);
     }
 
     @Override
-    public List<CreateBillingResponse> listingBillings() {
-        // Acessa abacatePayConfig diretamente se necessário
+    public Optional<List<Billing>> listingBillings() {
         return paymentService.listingBillings(abacatePayConfig);
     }
 

@@ -6,9 +6,10 @@ import com.abacatepay.Models.Billing.CreateBillingResponse;
 import com.abacatepay.Utils.Config.AbacatePayConfig;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PaymentService {
-    Billing createBilling(CreateBillingData billingData, AbacatePayConfig config);
+    Optional<Billing> createBilling(CreateBillingData billingData, AbacatePayConfig config);
 
-    List<CreateBillingResponse> listingBillings(AbacatePayConfig config);
+    Optional<List<Billing>> listingBillings(AbacatePayConfig config);
 }
