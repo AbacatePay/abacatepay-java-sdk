@@ -39,7 +39,7 @@ public class AbacatePay implements IAbacatePay {
     }
 
     @Override
-    public IAbacatePayBilling billing() {
+    public IAbacatePayBilling Billing() {
 
         class AbacatePayBilling implements IAbacatePayBilling {
 
