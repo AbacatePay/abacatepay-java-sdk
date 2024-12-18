@@ -1,8 +1,6 @@
 package com.abacatepay.model.Billing;
 
-import com.abacatepay.Models.Billing.CustomerMetadata;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerMetadataTest {
 

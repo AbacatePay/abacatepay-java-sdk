@@ -1,6 +1,6 @@
 package com.abacatepay.Models.Billing;
 
-import com.abacatepay.Models.CustomerModel.Customer;
+import com.abacatepay.Models.AbacatePayClient.AbacatePayClientResponse;
 import com.abacatepay.Models.ProductModel.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,7 +25,7 @@ public class Billing {
     @JsonFormat(timezone = "America/Sao_Paulo", pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime nextBilling;
 
-    private Customer customer;
+    private AbacatePayClientResponse customer;
 
     @JsonFormat(timezone = "America/Sao_Paulo", pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime createdAt;
