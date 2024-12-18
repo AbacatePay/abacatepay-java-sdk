@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AbacatePayClient {
+public class AbacatePayClientRequest {
     private String name;
     private String cellphone;
     private String email;
