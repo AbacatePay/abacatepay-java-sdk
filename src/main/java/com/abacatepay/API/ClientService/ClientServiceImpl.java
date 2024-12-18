@@ -33,10 +33,10 @@ public class ClientServiceImpl implements ClientService {
 
             // Creating a request
             Request req = new Request.Builder()
-                    .url(config.getBASE_URL() + "/customer/create")
+                    .url(config.getBaseUrl()+ "/customer/create")
                     .post(requestBody)
                     .addHeader("accept", "application/json")
-                    .addHeader("Authorization", "Bearer " + config.getAPI_KEY())
+                    .addHeader("Authorization", "Bearer " + config.getApiKey())
                     .addHeader("content-type", "application/json")
                     .build();
 
@@ -63,10 +63,10 @@ public class ClientServiceImpl implements ClientService {
     public List<AbacatePayClientResponse> listingClients(AbacatePayConfig config) {
         try {
             Request req = new Request.Builder()
-                    .url(config.getBASE_URL() + "/customer/create")
+                    .url(config.getBaseUrl() + "/customer/create")
                     .get()
                     .addHeader("accept", "application/json")
-                    .addHeader("Authorization", "Bearer " + config.getAPI_KEY())
+                    .addHeader("Authorization", "Bearer " + config.getApiKey())
                     .addHeader("content-type", "application/json")
                     .build();
 
