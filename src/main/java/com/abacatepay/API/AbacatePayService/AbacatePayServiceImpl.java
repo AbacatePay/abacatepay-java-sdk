@@ -26,7 +26,7 @@ public class AbacatePayServiceImpl implements AbacatePayService {
     // Payment & Billing Actions
     @Override
     public CreateBillingResponse createBilling(CreateBillingData billingData) {
-        return paymentService.createBilling(billingData);
+        return paymentService.createBilling(billingData, abacatePayConfig);
     }
 
     @Override

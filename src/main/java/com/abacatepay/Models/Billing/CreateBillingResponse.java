@@ -1,11 +1,13 @@
 package com.abacatepay.Models.Billing;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@Builder
 public class CreateBillingResponse {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

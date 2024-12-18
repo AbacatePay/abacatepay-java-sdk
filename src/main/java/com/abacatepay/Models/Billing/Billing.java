@@ -4,6 +4,7 @@ import com.abacatepay.Models.AbacatePayClient.AbacatePayClientResponse;
 import com.abacatepay.Models.ProductModel.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Builder
 public class Billing {
     private String id;
     private String url;
