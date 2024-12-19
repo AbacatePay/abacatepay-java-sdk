@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: abacatepay-java-sdk
+abacatepay:
+  base-url: https://api.abacatepay.com/v1/
+  api-token: YOUR-API-TOKEN
