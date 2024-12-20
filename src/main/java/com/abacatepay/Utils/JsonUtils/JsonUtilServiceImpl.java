@@ -76,22 +76,22 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         jsonArray.forEach(object -> {
             JSONObject jsonObject = new JSONObject(object.toString());
 
-            if (!jsonObject.has("metadata")) {
-                throw new IllegalArgumentException("Missing metadata in one of the client responses");
+            if (!jsonObject.has("data")) {
+                throw new IllegalArgumentException("Missing data in one of the client responses");
             }
 
             // Extracting metadata from JSON response
             MetaData metaData = MetaData.builder()
-                    .name(jsonObject.getJSONObject("metadata").optString("name", "Unknown"))
-                    .cellphone(jsonObject.getJSONObject("metadata").optString("cellphone", "Unknown"))
-                    .email(jsonObject.getJSONObject("metadata").optString("email", "Unknown"))
-                    .taxId(jsonObject.getJSONObject("metadata").optString("taxId", "Unknown"))
+                    .name(jsonObject.optJSONObject("data").optJSONObject("metadata").optString("name", "Unknown"))
+                    .cellphone(jsonObject.optJSONObject("data").optJSONObject("metadata").optString("cellphone", "Unknown"))
+                    .email(jsonObject.optJSONObject("data").optJSONObject("metadata").optString("email", "Unknown"))
+                    .taxId(jsonObject.optJSONObject("data").optJSONObject("metadata").optString("taxId", "Unknown"))
                     .build();
 
             // Adding each client response to the list
             abacatePayClientResponses.add(
                     AbacatePayClientResponse.builder()
-                            .id(jsonObject.optString("id", "Unknown"))
+                            .id(jsonObject.optJSONObject("data").optString("id", "Unknown"))
                             .metaData(metaData)
                             .build()
             );
