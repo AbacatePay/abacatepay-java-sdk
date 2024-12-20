@@ -38,8 +38,8 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         JSONObject clientResponseJson = new JSONObject(response);
 
         // Verifying if the 'metadata' field exists in the response
-        if (!clientResponseJson.has("data")) {
-            throw new IllegalArgumentException("Missing data in response");
+        if (!clientResponseJson.has("data") && !clientResponseJson.has("metadata")) {
+            throw new IllegalArgumentException("Missing data or metadata in response");
         }
 
         // Constructing MetaData with default values
@@ -150,7 +150,6 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         return billingDataJson;
     }
 
-
     @Override
     public Billing createBillingResponseFromJsonToObject(String response) {
         if (response == null) {
@@ -159,9 +158,15 @@ public class JsonUtilServiceImpl implements JsonUtilService {
 
         JSONObject billingResponseJson = new JSONObject(response);
 
-        JSONArray methodsJsonArray = billingResponseJson.optJSONArray("methods");
-        JSONArray productsJsonArray = billingResponseJson.optJSONArray("products");
-        JSONObject customerJson = billingResponseJson.optJSONObject("customer");
+        JSONArray methodsJsonArray = billingResponseJson
+                .optJSONObject("data")
+                .optJSONArray("methods");
+        JSONArray productsJsonArray = billingResponseJson
+                .optJSONObject("data")
+                .optJSONArray("products");
+        JSONObject customerJson = billingResponseJson
+                .optJSONObject("data")
+                .optJSONObject("customer");
 
         List<BillingMethod> methodList = new ArrayList<>();
         List<Product> productList = new ArrayList<>();
@@ -171,32 +176,60 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         }
 
         if (productsJsonArray != null) {
-            productsJsonArray.forEach(product -> {
-                JSONObject productJson = new JSONObject(product);
-                Product productObj = Product.builder()
-                        .Id(productJson.optString("id"))
-                        .externalId(productJson.optString("externalId"))
-                        .quantity(productJson.optInt("quantity"))
-                        .build();
-                productList.add(productObj);
-            });
+          for (int i = 0; i<billingResponseJson.optJSONObject("data").getJSONArray("products").length(); i++){
+              Product product = Product.builder()
+                      .quantity(
+                              billingResponseJson
+                              .optJSONObject("data")
+                              .getJSONArray("products")
+                              .getJSONObject(i)
+                              .getInt("quantity"))
+                      .Id(   billingResponseJson
+                              .optJSONObject("data")
+                              .getJSONArray("products")
+                              .getJSONObject(i)
+                              .optString("id"))
+                      .externalId(   billingResponseJson
+                              .optJSONObject("data")
+                              .getJSONArray("products")
+                              .getJSONObject(i)
+                              .optString("externalId"))
+                      .build();
+              productList.add(product);
+          }
         }
         Optional<AbacatePayClientResponse> optionalAbacatePayClientResponse =
                 customerJson != null ? Optional.ofNullable(abacatePayClientResponseFromJsonToObject(customerJson.toString())) : Optional.empty();
 
         // Constructing the Billing object from the parsed JSON data
         Billing billingResponse = Billing.builder()
-                .id(billingResponseJson.optString("id"))
-                .url(billingResponseJson.optString("url"))
-                .amount(billingResponseJson.getBigDecimal(("amount")))
-                .status(BillingStatus.valueOf(billingResponseJson.optString("status", "PENDING")))
-                .devMode(billingResponseJson.optBoolean("devMode"))
+                .id(billingResponseJson
+                        .optJSONObject("data")
+                        .optString("id"))
+                .url(billingResponseJson
+                        .optJSONObject("data")
+                        .optString("url"))
+                .amount(billingResponseJson
+                        .optJSONObject("data")
+                        .getBigDecimal(("amount")))
+                .status(BillingStatus.valueOf(
+                        billingResponseJson
+                        .optJSONObject("data")
+                        .optString("status", "PENDING")))
+                .devMode(billingResponseJson.optJSONObject("data").optBoolean("devMode"))
                 .methods(methodList)
                 .products(productList)
-                .frequency(BillingKind.valueOf(billingResponseJson.optString("frequency", "MONTHLY")))
+                .frequency(BillingKind.valueOf(
+                        billingResponseJson
+                        .optJSONObject("data")
+                        .optString("frequency", "ONE_TIME")))
                 .nextBilling(
-                        !billingResponseJson.optString("nextBilling").isEmpty()
-                                ? LocalDateTime.parse(billingResponseJson.optString("nextBilling"))
+                        !billingResponseJson.optJSONObject("data").optString("nextBilling").isEmpty()
+                                ? LocalDateTime.parse(
+                                        billingResponseJson
+                                                .optJSONObject("data")
+                                                .optString("nextBilling")
+                        )
                                 : null
                 )
                 .customer(optionalAbacatePayClientResponse.orElse(null))
