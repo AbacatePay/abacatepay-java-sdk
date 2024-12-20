@@ -27,7 +27,7 @@ public class PaymenteServiceImpl implements PaymentService {
             JSONObject jsonObject = jsonUtilService.createBillingDataJson(billingData);
             RequestBody requestBody = RequestBody.create(jsonObject.toString(), MediaType.get("application/json"));
             Request req = new Request.Builder()
-                    .url(config.getBaseUrl() + "/billing/create")
+                    .url(config.getBaseUrl() + "billing/create")
                     .post(requestBody)
                     .addHeader("accept", "application/json")
                     .addHeader("Authorization", "Bearer " + config.getApiKey())
@@ -54,7 +54,7 @@ public class PaymenteServiceImpl implements PaymentService {
     public Optional<List<Billing>> listingBillings(AbacatePayConfig config) {
         try {
             Request req = new Request.Builder()
-                    .url(config.getBaseUrl() + "/billing/list")
+                    .url(config.getBaseUrl() + "billing/list")
                     .get()
                     .addHeader("accept", "application/json")
                     .addHeader("Authorization", "Bearer " + config.getApiKey())

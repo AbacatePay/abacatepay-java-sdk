@@ -31,7 +31,7 @@ public class ClientServiceImpl implements ClientService {
 
             // POST to create client
             Request req = new Request.Builder()
-                    .url(config.getBaseUrl() + "/customer/create")
+                    .url(config.getBaseUrl() + "customer/create")
                     .post(requestBody)
                     .addHeader("accept", "application/json")
                     .addHeader("Authorization", "Bearer " + config.getApiKey())
@@ -42,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
             Response res = client.newCall(req).execute();
 
             if (!res.isSuccessful()) {
-                throw new ClientExeption("Unauthorized API Token.");
+                throw new ClientExeption("Unauthorized API Token, API TOKEN: "+config.getApiKey()+ "Message: "+res.body().string());
             }
 
             // If success, return client
@@ -60,7 +60,7 @@ public class ClientServiceImpl implements ClientService {
         try {
             // GET to list Clients
             Request req = new Request.Builder()
-                    .url(config.getBaseUrl() + "/customer/list")
+                    .url(config.getBaseUrl() + "customer/list")
                     .get()
                     .addHeader("accept", "application/json")
                     .addHeader("Authorization", "Bearer " + config.getApiKey())
@@ -70,7 +70,7 @@ public class ClientServiceImpl implements ClientService {
             // Exec Req
             try (Response res = client.newCall(req).execute()) {
                 if (!res.isSuccessful()) {
-                    throw new ClientExeption("Unauthorized API Token");
+                    throw new ClientExeption("Unauthorized API Token, API TOKEN: "+config.getApiKey());
                 }
                 //If null throw exception
                 if (res.body() == null) {
