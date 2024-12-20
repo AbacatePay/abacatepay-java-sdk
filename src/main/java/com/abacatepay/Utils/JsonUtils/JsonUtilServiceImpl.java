@@ -37,7 +37,7 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         // Converting the response string into a JSONObject
         JSONObject clientResponseJson = new JSONObject(response);
 
-        // Verifying if the 'metadata' field exists in the response
+        // Verifying if the 'metadata' or 'data' field exists in the response
         if (!clientResponseJson.has("data") && !clientResponseJson.has("metadata")) {
             throw new IllegalArgumentException("Missing data or metadata in response");
         }
@@ -155,7 +155,7 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         if (response == null) {
             return null;
         }
-
+        //Constructing the JSONObject and Arrays
         JSONObject billingResponseJson = new JSONObject(response);
 
         JSONArray methodsJsonArray = billingResponseJson
@@ -174,7 +174,7 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         if (methodsJsonArray != null) {
             methodsJsonArray.forEach(method -> methodList.add(BillingMethod.valueOf(method.toString())));
         }
-
+        //Constructing the product array
         if (productsJsonArray != null) {
           for (int i = 0; i<billingResponseJson.optJSONObject("data").getJSONArray("products").length(); i++){
               Product product = Product.builder()
@@ -202,7 +202,8 @@ public class JsonUtilServiceImpl implements JsonUtilService {
                 customerJson != null ? Optional.ofNullable(abacatePayClientResponseFromJsonToObject(customerJson.toString())) : Optional.empty();
 
         // Constructing the Billing object from the parsed JSON data
-        Billing billingResponse = Billing.builder()
+
+        return Billing.builder()
                 .id(billingResponseJson
                         .optJSONObject("data")
                         .optString("id"))
@@ -234,8 +235,6 @@ public class JsonUtilServiceImpl implements JsonUtilService {
                 )
                 .customer(optionalAbacatePayClientResponse.orElse(null))
                 .build();
-
-        return billingResponse;
     }
 
 
@@ -248,8 +247,6 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         // Parsing the JSON array from the response string
         JSONArray billingResponseJsonArray = new JSONArray(string);
         List<Billing> billingResponseList = new ArrayList<>();
-
-        // Iterating through the array and converting each object to a Billing object
         for (int i = 0; i < billingResponseJsonArray.length(); i++) {
 
             JSONObject billingResponseJson = billingResponseJsonArray.getJSONObject(i);
