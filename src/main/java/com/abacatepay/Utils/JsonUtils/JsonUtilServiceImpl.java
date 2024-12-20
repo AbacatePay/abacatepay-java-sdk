@@ -38,29 +38,29 @@ public class JsonUtilServiceImpl implements JsonUtilService {
         JSONObject clientResponseJson = new JSONObject(response);
 
         // Verifying if the 'metadata' field exists in the response
-        if (!clientResponseJson.has("metadata")) {
-            throw new IllegalArgumentException("Missing metadata in response");
+        if (!clientResponseJson.has("data")) {
+            throw new IllegalArgumentException("Missing data in response");
         }
 
         // Constructing MetaData with default values
         MetaData metaData = MetaData.builder()
-                .name(clientResponseJson.optJSONObject("metadata") != null
-                        ? clientResponseJson.getJSONObject("metadata").optString("name", "Unknown")
+                .name(clientResponseJson.optJSONObject("data").optJSONObject("metadata") != null
+                        ? clientResponseJson.optJSONObject("data").optJSONObject("metadata").optString("name", "Unknown")
                         : "Unknown")
-                .cellphone(clientResponseJson.optJSONObject("metadata") != null
-                        ? clientResponseJson.getJSONObject("metadata").optString("cellphone", "Unknown")
+                .cellphone(clientResponseJson.optJSONObject("data").optJSONObject("metadata") != null
+                        ? clientResponseJson.optJSONObject("data").optJSONObject("metadata").optString("cellphone", "Unknown")
                         : "Unknown")
-                .email(clientResponseJson.optJSONObject("metadata") != null
-                        ? clientResponseJson.getJSONObject("metadata").optString("email", "Unknown")
+                .email(clientResponseJson.optJSONObject("data").optJSONObject("metadata") != null
+                        ? clientResponseJson.optJSONObject("data").optJSONObject("metadata").optString("email", "Unknown")
                         : "Unknown")
-                .taxId(clientResponseJson.optJSONObject("metadata") != null
-                        ? clientResponseJson.getJSONObject("metadata").optString("taxId", "Unknown")
+                .taxId(clientResponseJson.optJSONObject("data").optJSONObject("metadata") != null
+                        ? clientResponseJson.optJSONObject("data").optJSONObject("metadata").optString("taxId", "Unknown")
                         : "Unknown")
                 .build();
 
         // Returning the AbacatePayClientResponse object
         return AbacatePayClientResponse.builder()
-                .id(clientResponseJson.optString("id", "Unknown"))
+                .id(clientResponseJson.optJSONObject("data").optString("id", "Unknown"))
                 .metaData(metaData)
                 .build();
     }
