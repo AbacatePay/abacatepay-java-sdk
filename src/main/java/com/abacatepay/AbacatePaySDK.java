@@ -6,9 +6,11 @@ import com.abacatepay.API.PaymentService.PaymentService;
 import com.abacatepay.Utils.JsonUtils.JsonUtilService;
 
 public class AbacatePaySDK {
-  public AbacatePayService abacatePayService;
-  public ClientService clientService;
-  public PaymentService paymentService;
-  public JsonUtilService jsonUtilService;
+  public static void main(String[] args) {
+   AbacatePayService abacatePayService;
+  ClientService clientService;
+    PaymentService paymentService;
+  JsonUtilService jsonUtilService;
+  }
 
 }
