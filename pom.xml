@@ -12,12 +12,7 @@
     <name>abacatepay-java-sdk</name>
     <description>AbacatePay Java SDK</description>
 
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
+
 
     <dependencies>
         <!-- Dependências principais -->
@@ -38,6 +33,12 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.13.4.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>3.1.0</version> <!-- Adicionando a versão -->
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

@@ -7,14 +7,19 @@ import com.abacatepay.Models.AbacatePayClient.AbacatePayClientResponse;
 import com.abacatepay.Models.Billing.Billing;
 import com.abacatepay.Models.Billing.CreateBillingData;
 import com.abacatepay.Utils.Config.AbacatePayConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class AbacatePayServiceImpl implements AbacatePayService {
+    @Autowired
     private final AbacatePayConfig abacatePayConfig;
+    @Autowired
     private final ClientService clientService;
+    @Autowired
     private final PaymentService paymentService;
 
     public AbacatePayServiceImpl(AbacatePayConfig abacatePayConfig, ClientService clientService, PaymentService paymentService) {

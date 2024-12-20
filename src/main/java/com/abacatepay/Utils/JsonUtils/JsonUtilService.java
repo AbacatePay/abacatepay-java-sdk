@@ -6,9 +6,10 @@ import com.abacatepay.Models.Billing.Billing;
 import com.abacatepay.Models.Billing.CreateBillingData;
 import com.abacatepay.Models.Billing.CreateBillingResponse;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface JsonUtilService {
     AbacatePayClientResponse abacatePayClientResponseFromJsonToObject(String string);
 
