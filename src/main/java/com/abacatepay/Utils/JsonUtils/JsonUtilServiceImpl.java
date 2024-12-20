@@ -116,29 +116,40 @@ public class JsonUtilServiceImpl implements JsonUtilService {
 
         // Adding billing methods as JSON array
         JSONArray methodsArray = new JSONArray();
-        for (BillingMethod method : billingData.getMethods()) {
-            methodsArray.put(method.toString());
+        for (int i = 0; i < billingData.getMethods().size(); i++) {
+            methodsArray.put(billingData.getMethods().get(i));
         }
         billingDataJson.put("methods", methodsArray);
 
         // Adding a list of products (CreateBillingProduct) to the JSON
         JSONArray productsArray = new JSONArray();
-        for (CreateBillingProduct product : billingData.getProducts()) {
+        for (int i = 0; i < billingData.getProducts().size(); i++) {
             JSONObject productJson = new JSONObject();
-            productJson.put("externalId", product.getExternalId());
-            productJson.put("name", product.getName());
-            productJson.put("description", product.getDescription());
-            productJson.put("quantity", product.getQuantity());
-            productJson.put("price", product.getPrice());
+            productJson.put("externalId", billingData.getProducts().get(i).getExternalId());
+            productJson.put("name", billingData.getProducts().get(i).getName());
+            productJson.put("description", billingData.getProducts().get(i).getDescription());
+            productJson.put("quantity", billingData.getProducts().get(i).getQuantity());
+            productJson.put("price", billingData.getProducts().get(i).getPrice());
             productsArray.put(productJson);
         }
 
         billingDataJson.put("products", productsArray);
         billingDataJson.put("returnUrl", billingData.getReturnUrl());
         billingDataJson.put("completionUrl", billingData.getCompletionUrl());
+        billingDataJson.put("customerId", billingData.getCustomerId());
+
+        // Converting the 'customer' object to a JSONObject
+        JSONObject customerJson = new JSONObject();
+        customerJson.put("name", billingData.getCustomer().getName());
+        customerJson.put("cellphone", billingData.getCustomer().getCellphone());
+        customerJson.put("email", billingData.getCustomer().getEmail());
+        customerJson.put("taxId", billingData.getCustomer().getTaxId());
+
+        billingDataJson.put("customer", customerJson);
 
         return billingDataJson;
     }
+
 
     @Override
     public Billing createBillingResponseFromJsonToObject(String response) {

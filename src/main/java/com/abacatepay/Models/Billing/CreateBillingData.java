@@ -1,13 +1,15 @@
 package com.abacatepay.Models.Billing;
 
 import com.abacatepay.Models.AbacatePayClient.AbacatePayClientRequest;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class CreateBillingData {
     private BillingKind frequency;
     private List<BillingMethod> methods;

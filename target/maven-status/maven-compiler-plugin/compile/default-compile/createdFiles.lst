@@ -23,11 +23,9 @@ com\abacatepay\API\RefundService\RefundServiceImpl.class
 com\abacatepay\Models\Billing\Billing.class
 com\abacatepay\Models\Billing\ListBillingResponse.class
 com\abacatepay\Models\AbacatePayClient\AbacatePayClientResponse.class
-com\abacatepay\Models\Billing\CreateBillingProduct$CreateBillingProductBuilder.class
 com\abacatepay\API\PaymentService\PaymenteServiceImpl.class
 com\abacatepay\Models\Billing\BillingMethod.class
 com\abacatepay\API\TransactionalService\TransactionalServiceImpl.class
-com\abacatepay\Models\Billing\CreateBillingData$CreateBillingDataBuilder.class
 com\abacatepay\API\ClientService\ClientService.class
 com\abacatepay\Models\ProductModel\Product.class
 com\abacatepay\Models\AbacatePayClient\MetaData.class
