@@ -69,16 +69,16 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven JAR Plugin -->
+            <!-- Maven JAR Plugin (sem a classe main) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <!-- Aqui garantimos que não será gerado como Spring Boot JAR executável -->
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
+                            <!-- Não adiciona a classe Main ao Manifesto -->
+                            <addClasspath>false</addClasspath>
                         </manifest>
                     </archive>
                 </configuration>
