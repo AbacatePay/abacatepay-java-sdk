@@ -68,34 +68,43 @@ public class JsonUtilServiceImpl implements JsonUtilService {
 
     @Override
     public List<AbacatePayClientResponse> abacatePayClientResponseFromJsonArrayToObject(String response) {
-        // Converting JSON array string to a List of AbacatePayClientResponse
-        JSONArray jsonArray = new JSONArray(response);
+        JSONObject jsonObject = new JSONObject(response);
         List<AbacatePayClientResponse> abacatePayClientResponses = new ArrayList<>();
+        if (!jsonObject.has("data")){
+            throw new RuntimeException("Data is missing in response");
+        }
+        for (int i = 0; i<jsonObject.optJSONArray("data").length(); i++){
 
-        // Verifying each object in the array
-        jsonArray.forEach(object -> {
-            JSONObject jsonObject = new JSONObject(object.toString());
+                MetaData metaData = MetaData.builder()
+                        .name(jsonObject.optJSONArray("data")
+                                .optJSONObject(i)
+                                .getJSONObject("metadata")
+                                .optString("name", "Unknown"))
+                        .cellphone(jsonObject.optJSONArray("data")
+                                .optJSONObject(i)
+                                .getJSONObject("metadata")
+                                .optString("cellphone", "Unknown"))
+                        .email(jsonObject.optJSONArray("data")
+                                .optJSONObject(i)
+                                .getJSONObject("metadata")
+                                .optString("email", "Unknown"))
+                        .taxId(jsonObject.optJSONArray("data")
+                                .optJSONObject(i)
+                                .getJSONObject("metadata")
+                                .optString("taxId", "Unknown"))
+                        .build();
 
-            if (!jsonObject.has("data")) {
-                throw new IllegalArgumentException("Missing data in one of the client responses");
-            }
+                // Adding each client response to the list
+                abacatePayClientResponses.add(
+                        AbacatePayClientResponse.builder()
+                                .id(jsonObject.optJSONArray("data")
+                                        .optJSONObject(i)
+                                        .optString("id", "Unknown"))
+                                .metaData(metaData)
+                                .build());
 
-            // Extracting metadata from JSON response
-            MetaData metaData = MetaData.builder()
-                    .name(jsonObject.optJSONObject("data").optJSONObject("metadata").optString("name", "Unknown"))
-                    .cellphone(jsonObject.optJSONObject("data").optJSONObject("metadata").optString("cellphone", "Unknown"))
-                    .email(jsonObject.optJSONObject("data").optJSONObject("metadata").optString("email", "Unknown"))
-                    .taxId(jsonObject.optJSONObject("data").optJSONObject("metadata").optString("taxId", "Unknown"))
-                    .build();
+        }
 
-            // Adding each client response to the list
-            abacatePayClientResponses.add(
-                    AbacatePayClientResponse.builder()
-                            .id(jsonObject.optJSONObject("data").optString("id", "Unknown"))
-                            .metaData(metaData)
-                            .build()
-            );
-        });
 
         return abacatePayClientResponses;
     }
