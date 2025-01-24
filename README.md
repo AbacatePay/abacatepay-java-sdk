@@ -19,7 +19,7 @@ Welcome to the official [AbacatePay](https://github.com/AbacatePay) Java SDK rep
 
 ----------
 
-##Introduction
+## Introduction
 
 The AbacatePay Java SDK is designed for developers who want to integrate the 🥑AbacatePay API into their Java projects ☕. It provides classes and methods to facilitate authentication, handling charges, and communicating with the API in an intuitive and standardized way.
 
