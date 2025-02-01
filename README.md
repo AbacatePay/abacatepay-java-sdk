@@ -1,5 +1,10 @@
 # 🥑 **AbacatePay _Java_ SDK**
 
+![Readme Version](https://img.shields.io/badge/version-1.1-blue)  ![Status](https://img.shields.io/badge/status-active-brightgreen) ![License](https://img.shields.io/badge/license-MIT-green) 
+---
+![Contributors](https://img.shields.io/github/contributors/AbacatePay/abacatepay-java-sdk) 
+![Last Commit](https://img.shields.io/github/last-commit/AbacatePay/abacatepay-java-sdk)
+
 Welcome to the official [AbacatePay](https://github.com/AbacatePay) Java SDK repository! This project was created to facilitate integration with the AbacatePay API, providing a robust, modular and easy-to-use SDK. 🍃
 <div align="center">
   <img src="https://cdn.discordapp.com/attachments/1133480741876019206/1332413972103565322/OIG2.UhRqOqltmix.jpeg?ex=67952ab6&is=6793d936&hm=23ea047d3577a6bd0e5476739e736b6b9f3276406a6a6538f386e62e82467e75" alt="Imagem" width="300" />
