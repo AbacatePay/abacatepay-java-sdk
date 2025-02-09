@@ -85,7 +85,10 @@ Here's what you need to install for it to work properly:
 
 ```bash
 sudo apt install maven
-
+```
+or 
+```bash
+choco install maven -y
 ```
 
 3. **SDK Dependencies**: This SDK uses Feign for HTTP requests. Add the Feign dependency to your `pom.xml`:
