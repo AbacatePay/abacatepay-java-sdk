@@ -1,4 +1,4 @@
-package com.abacatepay.model.billing;
+package com.abacatepay.model.customer;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,11 +7,11 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class ListBillingResponse {
+public class ListCustomerResponse {
     private String error;
-    private List<Billing> data;
+    private List<Customer> data;
 
-    public ListBillingResponse(String error) {
+    public ListCustomerResponse(String error) {
         this.error = error;
     }
 }
