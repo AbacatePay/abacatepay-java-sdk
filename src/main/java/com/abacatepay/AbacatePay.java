@@ -4,9 +4,13 @@ import com.abacatepay.clients.AbacatePayClient;
 import com.abacatepay.clients.factories.AbacatePayClientFactory;
 import com.abacatepay.model.IAbacatePay;
 import com.abacatepay.model.IAbacatePayBilling;
+import com.abacatepay.model.IAbacatePayPixQrCode;
 import com.abacatepay.model.billing.CreateBillingData;
 import com.abacatepay.model.billing.CreateBillingResponse;
 import com.abacatepay.model.billing.ListBillingResponse;
+import com.abacatepay.model.pixqrcode.CheckPixQRCodeResponse;
+import com.abacatepay.model.pixqrcode.CreatePixQRCodeData;
+import com.abacatepay.model.pixqrcode.CreatePixQRCodeResponse;
 import feign.FeignException;
 import feign.RequestInterceptor;
 
@@ -63,5 +67,24 @@ public class AbacatePay implements IAbacatePay {
         }
 
         return new AbacatePayBilling();
+    }
+
+    @Override
+    public IAbacatePayPixQrCode pixQrCode() {
+
+        class AbacatePayPixQrCode implements IAbacatePayPixQrCode {
+
+            @Override
+            public CreatePixQRCodeResponse create(CreatePixQRCodeData pixQRCode) {
+                return client.create(pixQRCode);
+            }
+
+            @Override
+            public CheckPixQRCodeResponse check(String id) {
+                return client.check(id);
+            }
+        }
+
+        return new AbacatePayPixQrCode();
     }
 }
