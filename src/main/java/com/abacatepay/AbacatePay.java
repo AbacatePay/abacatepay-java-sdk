@@ -4,9 +4,14 @@ import com.abacatepay.clients.AbacatePayClient;
 import com.abacatepay.clients.factories.AbacatePayClientFactory;
 import com.abacatepay.model.IAbacatePay;
 import com.abacatepay.model.IAbacatePayBilling;
+import com.abacatepay.model.IAbacatePayWithdraw;
 import com.abacatepay.model.billing.CreateBillingData;
 import com.abacatepay.model.billing.CreateBillingResponse;
 import com.abacatepay.model.billing.ListBillingResponse;
+import com.abacatepay.model.withdraw.payloads.request.CreateWithdrawRequest;
+import com.abacatepay.model.withdraw.payloads.response.CreateWithdrawResponse;
+import com.abacatepay.model.withdraw.payloads.response.ListWithdrawResponse;
+import com.abacatepay.model.withdraw.payloads.response.WithdrawResponse;
 import feign.FeignException;
 import feign.RequestInterceptor;
 
@@ -22,7 +27,7 @@ public class AbacatePay implements IAbacatePay {
         this.apiKey = apiKey;
         this.client = AbacatePayClientFactory.create(API_BASE_URL, requestInterceptor());
 
-        //TODO: Pegar a versão do SDK dinamicamente
+        // TODO: Pegar a versão do SDK dinamicamente
         this.userAgent = "Java SDK (1.0.0)";
     }
 
@@ -63,5 +68,39 @@ public class AbacatePay implements IAbacatePay {
         }
 
         return new AbacatePayBilling();
+    }
+
+    @Override
+    public IAbacatePayWithdraw withdraw() {
+        class AbacatePayWithdraw implements IAbacatePayWithdraw {
+            @Override
+            public CreateWithdrawResponse createWithdraw(CreateWithdrawRequest body) {
+                try {
+                    return client.createWithdraw(body);
+                } catch (IllegalArgumentException | FeignException e) {
+                    return new CreateWithdrawResponse(e.getMessage());
+                }
+            }
+
+            @Override
+            public ListWithdrawResponse listWithdraw() {
+                try {
+                    return client.listWithdraw();
+                } catch (IllegalArgumentException | FeignException e) {
+                    return new ListWithdrawResponse(e.getMessage());
+                }
+            }
+
+            @Override
+            public WithdrawResponse getWithdraw(String externalId) {
+                try {
+                    return client.getWithdraw(externalId);
+                } catch (IllegalArgumentException | FeignException e) {
+                    return new WithdrawResponse(e.getMessage());
+                }
+            }
+        }
+
+        return new AbacatePayWithdraw();
     }
 }
