@@ -146,7 +146,7 @@ template.header("Content-Type", "application/json");
 
 };
 
-public CreateBillingResponse reateBilling(CreateBillingData data) {
+public CreateBillingResponse createBilling(CreateBillingData data) {
 return client.create(data);
 }
 
