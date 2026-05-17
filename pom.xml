@@ -92,6 +92,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>com.abacatepay.AbacatePay</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                     </archive>
                 </configuration>

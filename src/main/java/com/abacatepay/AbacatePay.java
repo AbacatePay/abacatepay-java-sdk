@@ -1,37 +1,38 @@
 package com.abacatepay;
 
-import com.abacatepay.clients.AbacatePayClient;
 import com.abacatepay.clients.factories.AbacatePayClientFactory;
+import com.abacatepay.model.AbacatePayBilling;
 import com.abacatepay.model.IAbacatePay;
 import com.abacatepay.model.IAbacatePayBilling;
-import com.abacatepay.model.billing.CreateBillingData;
-import com.abacatepay.model.billing.CreateBillingResponse;
-import com.abacatepay.model.billing.ListBillingResponse;
-import feign.FeignException;
 import feign.RequestInterceptor;
 
 public class AbacatePay implements IAbacatePay {
 
     private static final String API_BASE_URL = "https://api.abacatepay.com/v1";
+    private static final String SDK_NAME = "abacatepay-java-sdk";
+    private static final String SDK_VERSION = resolveVersion();
 
-    private final AbacatePayClient client;
     private final String apiKey;
     private final String userAgent;
+    private final IAbacatePayBilling billing;
 
     public AbacatePay(String apiKey) {
-        this.apiKey = apiKey;
-        this.client = AbacatePayClientFactory.create(API_BASE_URL, requestInterceptor());
+        if (apiKey == null || apiKey.isBlank()) {
+            throw new IllegalArgumentException("API key not provided");
+        }
 
-        //TODO: Pegar a versão do SDK dinamicamente
-        this.userAgent = "Java SDK (1.0.0)";
+        this.apiKey = apiKey;
+        this.userAgent = buildUserAgent();
+        this.billing = new AbacatePayBilling(
+                AbacatePayClientFactory.create(
+                        API_BASE_URL,
+                        requestInterceptor()
+                )
+        );
     }
 
     private RequestInterceptor requestInterceptor() {
         return template -> {
-            if (apiKey == null || apiKey.isEmpty()) {
-                throw new IllegalArgumentException("API key not provided");
-            }
-
             template.header("Authorization", "Bearer " + apiKey);
             template.header("Content-Type", "application/json");
             template.header("User-Agent", userAgent);
@@ -40,28 +41,32 @@ public class AbacatePay implements IAbacatePay {
 
     @Override
     public IAbacatePayBilling billing() {
+        return billing;
+    }
 
-        class AbacatePayBilling implements IAbacatePayBilling {
+    private static String resolveVersion() {
+        Package pkg = AbacatePay.class.getPackage();
+        String version = null;
 
-            @Override
-            public CreateBillingResponse create(CreateBillingData data) {
-                try {
-                    return client.create(data);
-                } catch (IllegalArgumentException | FeignException e) {
-                    return new CreateBillingResponse(e.getMessage());
-                }
-            }
-
-            @Override
-            public ListBillingResponse list() {
-                try {
-                    return client.list();
-                } catch (IllegalArgumentException | FeignException e) {
-                    return new ListBillingResponse(e.getMessage());
-                }
-            }
+        if (pkg != null) {
+            version = pkg.getImplementationVersion();
         }
 
-        return new AbacatePayBilling();
+        if (version == null || version.isBlank()) {
+            version = "dev";
+        }
+
+        return version;
+    }
+
+    private static String buildUserAgent() {
+        return String.format(
+                "%s/%s Java/%s (%s %s)",
+                SDK_NAME,
+                SDK_VERSION,
+                System.getProperty("java.version"),
+                System.getProperty("os.name"),
+                System.getProperty("os.version")
+        );
     }
 }
